@@ -1,13 +1,5 @@
-import { argv } from 'process';
+import { argvObject } from '../basis/cli/args.js';
 
-const argvArray = argv.slice(2).map((argument) => {
-  let [key, value] = argument.split('=');
-  if (key.startsWith('--')) key = key.slice(2);
-
-  return [key, value];
-});
-const argvObject = Object.fromEntries(argvArray);
-
-export const appStore = {
+export const store = {
   userName: argvObject.username || 'User',
 };

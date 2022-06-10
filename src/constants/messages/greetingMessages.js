@@ -1,8 +1,9 @@
-import { appStore } from '../../store/store.js';
+import { EOL } from 'os';
+import { store } from '../../store/store.js';
 
-const { userName } = appStore;
+const { userName } = store;
 
 export const GREETING_MESSAGES = {
-  welcome: `Welcome to the File Manager, ${userName}!`,
-  goodbye: `Thank you for using File Manager, ${userName}!`,
+  printWelcome: () => `Welcome to the File Manager, ${userName}!${EOL}`,
+  printGoodbye: () => `${EOL}Thank you for using File Manager, ${userName}!`,
 };

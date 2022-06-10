@@ -1,12 +1,7 @@
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 import { readdir } from 'fs/promises';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-export const list = async () => {
-  return await readdir(join(__dirname, 'files'))
+export const list = async (folderPath) => {
+  return await readdir(folderPath)
     .then((fileNames) => {
       return fileNames;
     })
@@ -14,5 +9,3 @@ export const list = async () => {
       console.log(new Error('FS operation failed'));
     });
 };
-
-console.log(await list());
