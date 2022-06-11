@@ -3,7 +3,7 @@ import { chdir, cwd } from 'process';
 import { list } from '../../basis/fs/list.js';
 import { SYSTEM_MESSAGES } from '../../constants/messages/index.js';
 
-export const NavigationAndWorkingDirectory = async (readLineApp, command, parameters) => {
+export const navigationAndWorkingDirectory = async (readLineApp, command, parameters) => {
   const currentDirectory = cwd();
   const parentDirectory = dirname(currentDirectory);
 
@@ -20,7 +20,7 @@ export const NavigationAndWorkingDirectory = async (readLineApp, command, parame
 
     case 'ls':
       const ListAllFilesAndFolders = await list(cwd());
-      console.log(await ListAllFilesAndFolders);
+      console.log(ListAllFilesAndFolders);
       break;
 
     default:

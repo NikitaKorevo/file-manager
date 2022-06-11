@@ -1,15 +1,18 @@
-import { join } from 'path';
+import { resolve } from 'path';
 import { createReadStream } from 'fs';
 import { stdout } from 'process';
-import useFilenameDirname from '../utils/useFilenameDirname.mjs';
+import { EOL } from 'os';
+import { SYSTEM_MESSAGES } from '../../constants/messages/index.js';
 
-const { __dirname } = useFilenameDirname(import.meta.url);
+export const read = async (currentDirectory, filePath) => {
+  try {
+    const readStream = createReadStream(resolve(currentDirectory, ...filePath));
 
-export const read = async () => {
-  const readStream = createReadStream(join(__dirname, 'files', 'fileToRead.txt'), 'utf-8');
-
-  readStream.on('data', (chunk) => stdout.write(chunk));
-  readStream.on('error', (error) => console.log(error.message));
+    readStream.on('data', (chunk) => stdout.write(chunk));
+    readStream.on('end', () => {
+      console.log(SYSTEM_MESSAGES.printCurrentDirectory());
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 };
-
-read();
