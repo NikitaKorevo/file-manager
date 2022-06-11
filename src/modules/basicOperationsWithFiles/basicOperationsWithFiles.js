@@ -5,6 +5,7 @@ import { isAccess } from '../../utils/isAccess.js';
 import { read } from '../../basis/streams/read.js';
 import { create } from '../../basis/fs/create.js';
 import { rename } from '../../basis/fs/rename.js';
+import { copy } from '../../basis/fs/copy.js';
 
 export const basicOperationsWithFiles = async (readLineApp, command, parameters) => {
   const currentDirectory = cwd();
@@ -31,10 +32,14 @@ export const basicOperationsWithFiles = async (readLineApp, command, parameters)
         return ERROR_MESSAGES.printOperationFailed();
       }
 
-      rename(currentDirectory, parameters[0], parameters[1]);
+      await rename(currentDirectory, parameters[0], parameters[1]);
       break;
 
     case 'cp':
+      if (!(await isAccess(currentDirectory, parameters[0])) || parameters.length !== 2) {
+        return ERROR_MESSAGES.printOperationFailed();
+      }
+      await copy(currentDirectory, parameters[0], parameters[1]);
       break;
 
     case 'mv':

@@ -1,20 +1,16 @@
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
+import { relative } from 'path';
 import { cp } from 'fs/promises';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-export const copy = async () => {
+export const copy = async (currentDirectory, filePath, newFilePath) => {
   try {
-    await cp(path.join(__dirname, 'files'), path.join(__dirname, 'files_copy'), {
+    await cp(relative(currentDirectory, filePath), relative(currentDirectory, newFilePath), {
       errorOnExist: true,
       force: false,
       recursive: true,
     });
+
+    console.log('Copy made');
   } catch (error) {
-    console.log(new Error('FS operation failed'));
+    console.error('FS operation failed');
   }
 };
-
-copy();
