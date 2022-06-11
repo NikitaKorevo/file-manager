@@ -1,7 +1,6 @@
 import { resolve } from 'path';
 import { createReadStream } from 'fs';
 import { stdout } from 'process';
-import { EOL } from 'os';
 import { SYSTEM_MESSAGES } from '../../constants/messages/index.js';
 
 export const read = async (currentDirectory, filePath) => {

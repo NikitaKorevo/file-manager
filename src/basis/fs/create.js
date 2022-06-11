@@ -1,19 +1,12 @@
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
+import { resolve } from 'path';
 import { open } from 'fs/promises';
+import { ERROR_MESSAGES } from '../../constants/messages/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-export const create = async () => {
+export const create = async (folderPath, fileName) => {
   try {
-    const file = await open(path.join(__dirname, 'files', 'fresh.txt'), 'wx');
-
-    await file.writeFile('I am fresh and young');
+    const file = await open(resolve(folderPath, fileName), 'wx');
     await file.close();
   } catch (error) {
-    console.log(new Error('FS operation failed'));
+    ERROR_MESSAGES.printOperationFailed();
   }
 };
-
-create();

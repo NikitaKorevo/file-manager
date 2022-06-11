@@ -1,18 +1,28 @@
 import { dirname, resolve } from 'path';
 import { cwd } from 'process';
-import { SYSTEM_MESSAGES } from '../../constants/messages/index.js';
+import { ERROR_MESSAGES, SYSTEM_MESSAGES } from '../../constants/messages/index.js';
+import { isAccess } from '../../utils/isAccess.js';
 import { read } from '../../basis/streams/read.js';
+import { create } from '../../basis/fs/create.js';
 
 export const basicOperationsWithFiles = async (readLineApp, command, parameters) => {
   const currentDirectory = cwd();
-  const parentDirectory = dirname(currentDirectory);
 
   switch (command) {
     case 'cat':
-      read(currentDirectory, parameters);
+      if (!(await isAccess(currentDirectory, ...parameters))) {
+        return ERROR_MESSAGES.printOperationFailed();
+      }
+
+      await read(currentDirectory, parameters);
       break;
 
     case 'add':
+      if (parameters.length !== 1) {
+        return ERROR_MESSAGES.printOperationFailed();
+      }
+
+      await create(currentDirectory, ...parameters);
       break;
 
     case 'rn':
