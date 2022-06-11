@@ -1,14 +1,12 @@
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
+import { resolve } from 'path';
 import { rm } from 'fs/promises';
+import { ERROR_MESSAGES } from '../../constants/messages/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-export const remove = async () => {
-  await rm(path.join(__dirname, 'files', 'fileToRemove.txt')).catch(() =>
-    console.log(new Error('FS operation failed'))
-  );
+export const remove = async (currentDirectory, path) => {
+  try {
+    await rm(resolve(currentDirectory, path));
+    console.log('Deleted');
+  } catch (error) {
+    console.log(ERROR_MESSAGES.printOperationFailed());
+  }
 };
-
-remove();

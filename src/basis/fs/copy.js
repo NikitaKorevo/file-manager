@@ -9,7 +9,7 @@ export const copy = async (currentDirectory, filePath, newFilePath) => {
       recursive: true,
     });
 
-    console.log('Copy made');
+    console.log('Copy');
   } catch (error) {
     console.error('FS operation failed');
   }
