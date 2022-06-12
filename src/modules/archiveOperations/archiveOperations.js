@@ -17,6 +17,9 @@ export const archiveOperations = async (command, parameters) => {
       break;
 
     case 'decompress':
+      if (!(await isAccess(currentDirectory, parameters[0])) || parameters.length !== 2) {
+        return ERROR_MESSAGES.printOperationFailed();
+      }
       await decompress(currentDirectory, parameters[0], parameters[1]);
       break;
 

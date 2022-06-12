@@ -1,11 +1,12 @@
 import { stdin, stdout, exit, chdir } from 'process';
 import readLine from 'readline';
 import { homedir } from 'os';
-import { GREETING_MESSAGES, SYSTEM_MESSAGES } from './constants/messages/index.js';
+import { ERROR_MESSAGES, GREETING_MESSAGES, SYSTEM_MESSAGES } from './constants/messages/index.js';
 import { navigationAndWorkingDirectory } from './modules/NavigationAndWorkingDirectory/navigationAndWorkingDirectory.js';
 import { basicOperationsWithFiles } from './modules/BasicOperationsWithFiles/BasicOperationsWithFiles.js';
 import { hashCalculation } from './modules/hashCalculation/hashCalculation.js';
 import { archiveOperations } from './modules/archiveOperations/archiveOperations.js';
+import { operatingSystemInfo } from './modules/operatingSystemInfo/operatingSystemInfo.js';
 
 const startApp = () => {
   const readLineApp = readLine.createInterface({
@@ -59,7 +60,12 @@ const startApp = () => {
         await archiveOperations(command, parameters);
         break;
 
+      case 'os':
+        operatingSystemInfo(command, parameters);
+        break;
+
       default:
+        ERROR_MESSAGES.printInvalidInput();
         break;
     }
 
