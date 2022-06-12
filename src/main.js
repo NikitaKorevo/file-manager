@@ -4,6 +4,7 @@ import { homedir } from 'os';
 import { GREETING_MESSAGES, SYSTEM_MESSAGES } from './constants/messages/index.js';
 import { navigationAndWorkingDirectory } from './modules/NavigationAndWorkingDirectory/navigationAndWorkingDirectory.js';
 import { basicOperationsWithFiles } from './modules/BasicOperationsWithFiles/BasicOperationsWithFiles.js';
+import { hashCalculation } from './modules/hashCalculation/hashCalculation.js';
 
 const startApp = () => {
   const readLineApp = readLine.createInterface({
@@ -46,6 +47,10 @@ const startApp = () => {
       case 'mv':
       case 'rm':
         await basicOperationsWithFiles(readLineApp, command, parameters);
+        break;
+
+      case 'hash':
+        await hashCalculation(command, parameters);
         break;
 
       default:

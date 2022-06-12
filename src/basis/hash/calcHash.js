@@ -1,18 +1,14 @@
-import { join } from 'path';
+import { resolve } from 'path';
 import { readFile } from 'fs/promises';
 import { createHash } from 'crypto';
-import useFilenameDirname from '../utils/useFilenameDirname.mjs';
+import { ERROR_MESSAGES } from '../../constants/messages/errorMessages.js';
 
-const { __dirname } = useFilenameDirname(import.meta.url);
-
-export const calculateHash = async () => {
-  return readFile(join(__dirname, 'files', 'fileToCalculateHashFor.txt'))
+export const calculateHash = async (currentDirectory, path = '') => {
+  return readFile(resolve(currentDirectory, path))
     .then((data) => {
       return createHash('sha256').update(data).digest('hex');
     })
     .catch(() => {
-      console.log(new Error('FS operation failed'));
+      console.error(ERROR_MESSAGES.operationFailed);
     });
 };
-
-console.log(await calculateHash());
