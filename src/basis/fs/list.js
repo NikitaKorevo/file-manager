@@ -1,4 +1,5 @@
 import { readdir } from 'fs/promises';
+import { ERROR_MESSAGES } from '../../constants/messages/index.js';
 
 export const list = async (folderPath) => {
   return await readdir(folderPath)
@@ -6,6 +7,6 @@ export const list = async (folderPath) => {
       return fileNames;
     })
     .catch(() => {
-      console.log(new Error('FS operation failed'));
+      ERROR_MESSAGES.printOperationFailed();
     });
 };
