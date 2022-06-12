@@ -11,5 +11,3 @@ export const write = async () => {
   writeStream.on('error', (error) => console.log(error.message));
   stdin.on('data', (chunk) => writeStream.write(chunk));
 };
-
-write();
