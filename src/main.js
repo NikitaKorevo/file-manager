@@ -5,6 +5,7 @@ import { GREETING_MESSAGES, SYSTEM_MESSAGES } from './constants/messages/index.j
 import { navigationAndWorkingDirectory } from './modules/NavigationAndWorkingDirectory/navigationAndWorkingDirectory.js';
 import { basicOperationsWithFiles } from './modules/BasicOperationsWithFiles/BasicOperationsWithFiles.js';
 import { hashCalculation } from './modules/hashCalculation/hashCalculation.js';
+import { archiveOperations } from './modules/archiveOperations/archiveOperations.js';
 
 const startApp = () => {
   const readLineApp = readLine.createInterface({
@@ -51,6 +52,11 @@ const startApp = () => {
 
       case 'hash':
         await hashCalculation(command, parameters);
+        break;
+
+      case 'compress':
+      case 'decompress':
+        await archiveOperations(command, parameters);
         break;
 
       default:
